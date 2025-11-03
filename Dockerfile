@@ -1,4 +1,4 @@
-FROM bitnami/node:18-alpine AS builder
+FROM bitnami/node AS builder
 ENV NODE_ENV="production"
 
 # Copy app's source code to the /app directory
@@ -10,7 +10,7 @@ WORKDIR /app
 # Install Node.js dependencies defined in '/app/packages.json'
 RUN npm install
 
-FROM bitnami/node:18-alpine
+FROM bitnami/node
 ENV NODE_ENV="production"
 COPY --from=builder /app /app
 WORKDIR /app
