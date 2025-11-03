@@ -1,9 +1,9 @@
 pipeline {
     agent any
     environment {
-        PROJECT_ID = 'oss2022fall'
-        CLUSTER_NAME = 'kube'
-        LOCATION = 'asia-northeast3-a'
+        PROJECT_ID = 'open-474212'
+        CLUSTER_NAME = 'k8s'
+        LOCATION = 'asia-northeast3-c'
         CREDENTIALS_ID = 'gke'
     }
     stages {
@@ -15,14 +15,14 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("pjbear/hello:${env.BUILD_ID}")
+                    myapp = docker.build("sswujmc/hello:${env.BUILD_ID}")
                 }
             }
         }
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'sswujmc') {
                             myapp.push("latest")
                             myapp.push("${env.BUILD_ID}")
                     }
